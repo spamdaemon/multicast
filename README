@@ -1,0 +1,14 @@
+Simple tester to send multicast packets between two hosts.
+
+Build:
+ make
+
+Execute the sender:
+ bin/mcast send 224.0.0.1/12345   to send a message to port 12345 in multicast
+ group 224.0.0.1
+
+Execute the receiver:
+ bin/mcast receive 224.0.0.1/12345  to join the multicast group 224.0.0.1 and
+ receive messages on port 12345.
+
+IPv6 and IPv4 are supported.
