@@ -66,7 +66,7 @@ static struct sockaddr* parse_address(const char* addressport, int* ip_domain, s
 
    if (error) {
       if (addressport == NULL) {
-         fprintf(stderr, "Something expected went happened : %s\n", gai_strerror(error));
+         fprintf(stderr, "Something unexpected happened : %s\n", gai_strerror(error));
       }
       else {
          fprintf(stderr, "Failed to parse address %s : %s\n", addressport, gai_strerror(error));
