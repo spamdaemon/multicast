@@ -311,7 +311,7 @@ int main(int argc, char* const * argv)
       }
 
       if (connect(sock, ip_addr, ip_addrlen) != 0) {
-         errorMessage = "Failed to bind socket";
+         errorMessage = "Failed to connect socket";
          goto CLEANUP;
       }
 
