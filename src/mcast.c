@@ -36,25 +36,26 @@ static struct sockaddr* parse_address(const char* addressport, int* ip_domain, s
    if (rawAddress[0] == '[') {
       // ipv6 address
       address = rawAddress + 1;
-      char* x = rindex(rawAddress, ']');
+      char* x = strrchr(rawAddress, ']');
       if (x != NULL) {
          *x = '\0';
-         x = rindex(x + 1, ':');
+         x = strrchr(x + 1, ':');
          if (x != NULL) {
             *x = '\0';
             service = x + 1;
          }
       }
    }
-   else
+   else {
       for (const char* sep = separators; *sep != '\0'; ++sep) {
-         char* x = rindex(address, *sep);
+         char* x = strrchr(address, *sep);
          if (x != NULL) {
             *x = '\0';
             service = x + 1;
             break;
          }
       }
+   }
 
    struct addrinfo hints = {
    AI_NUMERICHOST,
@@ -315,12 +316,12 @@ int main(int argc, char* const * argv)
          goto CLEANUP;
       }
 
-      if (readMessage!=NULL && binary==1) {
+      if (readMessage != NULL && binary == 1) {
          bufSize = 68000;
          buf = malloc(bufSize);
          messageLen = 0;
          while (feof(readMessage) == 0 && (bufSize - messageLen) > 0) {
-            ssize_t actual = fread(buf + messageLen, 1,bufSize - messageLen,  readMessage);
+            ssize_t actual = fread(buf + messageLen, 1, bufSize - messageLen, readMessage);
             if (actual > 0) {
                messageLen += actual;
             }
@@ -381,7 +382,7 @@ int main(int argc, char* const * argv)
             break;
          }
          if (binary) {
-            fwrite(buf, 1,bufSize,  stdout);
+            fwrite(buf, 1, n, stdout);
          }
          else {
             buf[n] = '\0';
